@@ -21,6 +21,7 @@ admin.initializeApp({
   credential: admin.credential.applicationDefault(),
 });
 
+// comment this if you want to use a custom smtp solution
 let transporter;
 nodemailer.createTestAccount().then((testAccount) => {
   transporter = nodemailer.createTransport({
@@ -33,6 +34,8 @@ nodemailer.createTestAccount().then((testAccount) => {
     },
   });
 });
+
+// comment this if you want to use the testing solution above
 // // configure a reusable transporter for my personal gmail account
 // // here should go the custom SMTP server config
 // const transporter = nodemailer.createTransport({
@@ -54,6 +57,7 @@ function sendCustomPasswordResetEmail(email, htmlMessage) {
 }
 
 app.post("/reset-password", (req, res) => {
+  // expecting a body of { "email": "some email"}
   const userEmail = req.body.email;
   admin
     .auth()
